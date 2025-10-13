@@ -14,6 +14,7 @@ import com.example.journal.data.JournalRepository
 import com.example.journal.ui.EditViewModel
 import com.example.journal.ui.ListViewModel
 import com.example.journal.ui.VmFactory
+import com.example.journal.ui.screens.CalendarScreen
 import com.example.journal.ui.screens.DetailScreen
 import com.example.journal.ui.screens.EditScreen
 import com.example.journal.ui.screens.HomeScreen
@@ -44,6 +45,7 @@ fun JournalNavHost(
         ) {
             HomeScreen(
                 viewModel = listVm,
+                navController = navController,
                 onOpen = { id -> navController.navigate("detail/$id") },
                 onCreate = { navController.navigate("edit?entryId=-1") }
             )
@@ -71,6 +73,9 @@ fun JournalNavHost(
                 },
                 onBack = { navController.popBackStack() }
             )
+        }
+        composable("calendar") {
+            CalendarScreen(viewModel = listVm, onBack = { navController.popBackStack() })
         }
     }
 }
