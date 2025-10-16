@@ -8,10 +8,12 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import com.example.hydratrack.data.DataStoreManager.dataStore
 
-private const val DATASTORE_NAME = "hydration_prefs"
 
-private val Context.dataStore by preferencesDataStore(name = DATASTORE_NAME)
+/*private const val DATASTORE_NAME = "hydration_prefs"
+
+private val Context.dataStore by preferencesDataStore(name = DATASTORE_NAME)*/
 
 class IntakeDataStore(private val context: Context) {
 
