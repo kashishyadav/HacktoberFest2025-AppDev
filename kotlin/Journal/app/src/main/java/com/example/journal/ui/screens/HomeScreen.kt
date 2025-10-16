@@ -29,6 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.journal.data.JournalEntry
 import com.example.journal.ui.ListViewModel
 
@@ -37,7 +38,8 @@ import com.example.journal.ui.ListViewModel
 fun HomeScreen(
     viewModel: ListViewModel,
     onOpen: (Int) -> Unit,
-    onCreate: () -> Unit
+    onCreate: () -> Unit,
+    navController: NavHostController
 ) {
     val entries by viewModel.uiState.collectAsState()
     val tags by viewModel.tags.collectAsState()
@@ -57,6 +59,16 @@ fun HomeScreen(
         }
     ) { padding ->
         Column(modifier = Modifier.fillMaxSize().padding(padding).padding(12.dp)) {
+            Button(
+                onClick = { navController.navigate("calendar") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+            ) {
+                Text("📅 View Streak Calendar")
+            }
+            Spacer(Modifier.height(8.dp))
+
             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 items(tags) { label ->
                     FilterChip(

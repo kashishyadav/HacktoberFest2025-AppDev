@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
+import org.threeten.bp.YearMonth
 
 class ListViewModel(private val repository: JournalRepository) : ViewModel() {
     private val query = MutableStateFlow("")
@@ -39,6 +41,16 @@ class ListViewModel(private val repository: JournalRepository) : ViewModel() {
             _tags.value = _tags.value + trimmed
             setTag(trimmed)
         }
+    }
+
+    /**
+     * Returns list of LocalDate for entries in the given month.
+     * Used for calendar streaks.
+     */
+    fun getEntriesForMonth(yearMonth: YearMonth): List<LocalDate> {
+        return uiState.value
+            .filter { YearMonth.from(it.date) == yearMonth }
+            .map { it.date }
     }
 }
 
